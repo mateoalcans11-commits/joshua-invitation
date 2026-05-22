@@ -7,19 +7,53 @@ import { sectionIds } from "@/lib/event-info";
 import { scrollToSection } from "@/lib/scroll-to";
 import { EventSummaryCard } from "./EventSummaryCard";
 
-const BABY_PHOTO = "/joshua-baby.jpg";
+const BABY_PHOTO_MAIN = "/joshua-baby.jpg";
+const BABY_PHOTO_LEFT = "/joshua-sleeping.png";
 
-export function HeroInvitation() {
-  const [photoFailed, setPhotoFailed] = useState(false);
+function PhotoFrame({
+  src,
+  alt,
+  priority = false,
+  rotate = "",
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+  rotate?: string;
+}) {
+  const [failed, setFailed] = useState(false);
 
   return (
+    <div className={`relative w-full ${rotate}`}>
+      <div className="relative rounded-[1.4rem] bg-white p-2 shadow-card ring-1 ring-black/5 sm:rounded-[1.6rem] sm:p-2.5">
+        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.1rem] bg-gradient-to-br from-cream via-beige to-sky-100 sm:rounded-[1.3rem]">
+          {!failed ? (
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-cover object-center"
+              priority={priority}
+              sizes="(max-width: 430px) 46vw, 200px"
+              onError={() => setFailed(true)}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-4xl">🐮</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function HeroInvitation() {
+  return (
     <>
-      {/* First screen only: title, subtitle, centered photo */}
-      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full flex-col items-center overflow-hidden px-4">
+      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full flex-col items-center overflow-hidden px-3 sm:px-4">
         <CowDecorations variant="hero" />
 
-        <div className="relative z-10 flex w-full max-w-md flex-1 flex-col items-center">
-          <div className="w-full shrink-0 pt-[calc(1.5rem+30px+var(--safe-top))] text-center">
+        <div className="relative z-10 flex w-full max-w-lg flex-1 flex-col items-center">
+          <div className="w-full shrink-0 pt-[calc(1.5rem+80px+var(--safe-top))] text-center">
             <h1 className="font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-cow-brown min-[380px]:text-[2rem]">
               ¡Joshua cumple 1 añito!
             </h1>
@@ -28,37 +62,32 @@ export function HeroInvitation() {
             </p>
           </div>
 
-          <div className="flex w-full flex-1 flex-col items-center justify-center py-5">
-            <div className="relative mx-auto w-full max-w-[15.5rem]">
-              <CowEars />
-              <div className="relative rounded-[2rem] bg-white p-2.5 shadow-card ring-1 ring-black/5">
-                <div className="absolute -right-2 -top-2 z-20">
-                  <span className="inline-block h-7 w-9 rotate-12 rounded-full bg-cow-spot opacity-80" />
+          <div className="flex w-full flex-1 flex-col items-center justify-center px-1 py-4 sm:py-5">
+            <div className="relative mx-auto w-full max-w-[24rem] sm:max-w-[28rem]">
+              <div className="flex items-end justify-center gap-3 sm:gap-4">
+                {/* Left — sleeping */}
+                <div className="w-[47%] -rotate-6 pb-1">
+                  <PhotoFrame
+                    src={BABY_PHOTO_LEFT}
+                    alt="Joshua dormido"
+                  />
                 </div>
-                <div className="absolute -bottom-1 -left-3 z-20">
-                  <span className="inline-block h-5 w-7 -rotate-6 rounded-full bg-cow-spot opacity-60" />
-                </div>
-                <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-cream via-beige to-sky-100">
-                  {!photoFailed ? (
-                    <Image
-                      src={BABY_PHOTO}
-                      alt="Joshua"
-                      fill
-                      className="object-cover object-center"
-                      priority
-                      sizes="(max-width: 430px) 248px, 280px"
-                      onError={() => setPhotoFailed(true)}
-                    />
-                  ) : (
-                    <div className="flex h-full flex-col items-center justify-center gap-3 px-4 text-center">
-                      <span className="text-5xl" aria-hidden>
-                        🐮
-                      </span>
-                      <p className="text-sm font-medium text-cow-brown/70">
-                        No se pudo cargar la foto
-                      </p>
-                    </div>
-                  )}
+
+                {/* Right — main portrait, slightly larger */}
+                <div className="relative w-[53%]">
+                  <CowEars />
+                  <div className="absolute -right-1 -top-1 z-20">
+                    <span className="inline-block h-7 w-9 rotate-12 rounded-full bg-cow-spot opacity-80" />
+                  </div>
+                  <div className="absolute -bottom-1 -left-2 z-20">
+                    <span className="inline-block h-5 w-7 -rotate-6 rounded-full bg-cow-spot opacity-60" />
+                  </div>
+                  <PhotoFrame
+                    src={BABY_PHOTO_MAIN}
+                    alt="Joshua"
+                    priority
+                    rotate="rotate-3"
+                  />
                 </div>
               </div>
             </div>
@@ -86,8 +115,7 @@ export function HeroInvitation() {
         </button>
       </section>
 
-      {/* Below the first screen */}
-      <div className="relative z-10 w-full px-4 pb-8 pt-2">
+      <div className="relative z-10 w-full px-4 pb-8 pt-6">
         <div className="mx-auto w-full max-w-md">
           <EventSummaryCard />
         </div>
