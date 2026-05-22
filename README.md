@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Joshua — Invitación de cumpleaños 🐮
 
-## Getting Started
+Invitación móvil con temática de vaca para el primer cumpleaños de Joshua.
 
-First, run the development server:
+## Inicio rápido
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Foto del bebé
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Coloca la foto subida en:
 
-## Learn More
+```
+public/joshua-baby.jpg
+```
 
-To learn more about Next.js, take a look at the following resources:
+(Recomendado: JPG o PNG, retrato vertical, mínimo 800×1000 px.)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+La página intenta cargar `joshua-baby.jpg` primero; si no existe, muestra un placeholder temporal.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Editar detalles del evento
 
-## Deploy on Vercel
+En `src/components/EventDetails.tsx`, reemplaza los placeholders:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `[Agregar fecha]`
+- `[Agregar hora]`
+- `[Agregar dirección]`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## RSVP
+
+Los nombres se guardan en **localStorage** del navegador (cada dispositivo tiene su propia lista).
+
+Para RSVP compartido entre invitados, implementa `RsvpStorage` en `src/lib/rsvp-storage.ts` con Supabase o Firebase.
+
+## Despliegue
+
+```bash
+npm run build
+```
+
+Ideal para Vercel: comparte el enlace por WhatsApp.
+
+## Componentes
+
+| Componente       | Descripción                          |
+|------------------|--------------------------------------|
+| `HeroInvitation` | Hero con foto, título y decoración   |
+| `EventDetails`   | Fecha, hora y lugar                  |
+| `RSVPForm`       | Formulario de confirmación           |
+| `GuestList`      | Lista de invitados confirmados       |
+| `CowDecorations` | Manchas, orejas y animaciones        |
