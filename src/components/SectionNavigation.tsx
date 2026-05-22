@@ -139,10 +139,10 @@ function ScrollDownBanner({ visible }: { visible: boolean }) {
       <div className="overflow-hidden rounded-2xl bg-cow-brown/92 shadow-floating-dock ring-1 ring-white/10">
         <div className="px-4 py-3.5 text-center">
           <p className="text-[15px] font-bold leading-snug text-white">
-            ↓ Fecha, lugar y confirmación abajo
+            ↓ Confirma tu asistencia más abajo
           </p>
           <p className="mt-1 text-[13px] font-medium text-white/85">
-            Desliza o toca los botones de abajo
+            La fecha y lugar están arriba · usa los botones de abajo
           </p>
         </div>
       </div>

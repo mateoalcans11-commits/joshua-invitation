@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { rsvpStorage } from "@/lib/rsvp-storage";
-import { EventDetails } from "./EventDetails";
 import { GuestList } from "./GuestList";
 import { HeroInvitation } from "./HeroInvitation";
 import { CowScatter } from "./CowScatter";
@@ -34,8 +33,6 @@ export function InvitationPage() {
       <main className="relative z-10 w-full">
         <CowScatter density="full" className="max-sm:opacity-50" />
         <HeroInvitation />
-        <PartyDivider />
-        <EventDetails />
         <PartyDivider />
         <RSVPForm onSubmit={handleRsvp} disabled={!ready} />
         <PartyDivider />

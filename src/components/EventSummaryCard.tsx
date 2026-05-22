@@ -3,8 +3,16 @@ import { scrollToSection } from "@/lib/scroll-to";
 
 export function EventSummaryCard() {
   return (
-    <div className="mt-6 w-full rounded-3xl bg-white/95 p-4 text-left shadow-card ring-2 ring-sky-200/70 sm:mt-8 sm:p-5">
-      <p className="text-center text-sm font-bold uppercase tracking-wide text-sky-700">
+    <div
+      id={sectionIds.detalles}
+      tabIndex={-1}
+      className="scroll-mt-6 mt-6 w-full rounded-3xl bg-white/95 p-4 text-left shadow-card ring-2 ring-sky-200/70 outline-none sm:mt-8 sm:p-5"
+      aria-labelledby="fiesta-info-heading"
+    >
+      <p
+        id="fiesta-info-heading"
+        className="text-center text-sm font-bold uppercase tracking-wide text-sky-700"
+      >
         Información de la fiesta
       </p>
 
@@ -14,12 +22,16 @@ export function EventSummaryCard() {
         <SummaryRow emoji="📍" label="Dónde" value={eventInfo.place} />
       </ul>
 
+      <p className="mt-5 text-center text-[13px] leading-snug text-cow-brown/55">
+        Para confirmar o ver invitados, usa los botones de abajo
+      </p>
+
       <button
         type="button"
-        onClick={() => scrollToSection(sectionIds.detalles)}
-        className="btn-mobile touch-target mt-5 w-full rounded-2xl border-2 border-sky-300 bg-sky-50 text-[1.0625rem] font-bold text-sky-800 transition active:scale-[0.98] active:bg-sky-100"
+        onClick={() => scrollToSection(sectionIds.confirmar)}
+        className="btn-mobile touch-target mt-3 w-full rounded-2xl bg-gradient-to-r from-sky-400 to-sky-500 text-[1.0625rem] font-bold text-white shadow-soft transition active:scale-[0.98]"
       >
-        Ver detalles completos ↓
+        Confirmar que voy 🎉
       </button>
     </div>
   );

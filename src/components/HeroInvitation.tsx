@@ -6,7 +6,6 @@ import { CowDecorations, CowEars } from "./CowDecorations";
 import { sectionIds } from "@/lib/event-info";
 import { scrollToSection } from "@/lib/scroll-to";
 import { EventSummaryCard } from "./EventSummaryCard";
-import { HeroQuickActions } from "./HeroQuickActions";
 
 const BABY_PHOTO = "/joshua-baby.jpg";
 const BABY_PHOTO_ALT = "/joshua-standing.jpg";
@@ -82,16 +81,15 @@ export function HeroInvitation() {
         </p>
 
         <EventSummaryCard />
-        <HeroQuickActions />
       </div>
 
       <button
         type="button"
-        onClick={() => scrollToSection(sectionIds.detalles)}
+        onClick={() => scrollToSection(sectionIds.confirmar)}
         className="touch-target absolute bottom-[calc(var(--nav-height)+0.5rem)] left-1/2 z-20 flex min-h-[2.75rem] -translate-x-1/2 flex-col items-center justify-center gap-0.5 rounded-full bg-white/90 px-5 py-2 shadow-soft ring-1 ring-sky-200/80 backdrop-blur-sm sm:bottom-28"
         aria-label="Bajar a ver más información"
       >
-        <span className="text-xs font-bold text-cow-brown/70">Más abajo</span>
+        <span className="text-xs font-bold text-cow-brown/70">Confirmar abajo</span>
         <span className="animate-bounce-gentle text-cow-brown/50" aria-hidden>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path
