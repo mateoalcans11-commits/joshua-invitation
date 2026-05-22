@@ -25,9 +25,9 @@ function PhotoFrame({
   size?: "side" | "center";
 }) {
   const [failed, setFailed] = useState(false);
-  const pad = size === "center" ? "p-2.5 sm:p-3" : "p-1.5 sm:p-2";
-  const radius = size === "center" ? "rounded-[1.5rem] sm:rounded-[1.75rem]" : "rounded-[1.2rem] sm:rounded-[1.35rem]";
-  const innerRadius = size === "center" ? "rounded-[1.2rem] sm:rounded-[1.4rem]" : "rounded-[1rem] sm:rounded-[1.15rem]";
+  const pad = size === "center" ? "p-3 sm:p-3.5" : "p-1.5 sm:p-2";
+  const radius = size === "center" ? "rounded-[1.6rem] sm:rounded-[1.85rem]" : "rounded-[1.2rem] sm:rounded-[1.35rem]";
+  const innerRadius = size === "center" ? "rounded-[1.25rem] sm:rounded-[1.5rem]" : "rounded-[1rem] sm:rounded-[1.15rem]";
 
   return (
     <div className={`relative w-full ${rotate}`}>
@@ -44,8 +44,8 @@ function PhotoFrame({
               priority={priority}
               sizes={
                 size === "center"
-                  ? "(max-width: 430px) 38vw, 200px"
-                  : "(max-width: 430px) 28vw, 140px"
+                  ? "(max-width: 430px) 52vw, 260px"
+                  : "(max-width: 430px) 22vw, 120px"
               }
               onError={() => setFailed(true)}
             />
@@ -89,15 +89,15 @@ export function HeroInvitation() {
           </div>
 
           <div className="flex w-full flex-1 flex-col items-center justify-center px-0.5 py-3 sm:py-5">
-            <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem]">
-              <div className="flex items-end justify-center gap-1.5 sm:gap-2.5">
+            <div className="relative mx-auto w-full max-w-[28rem] sm:max-w-[32rem]">
+              <div className="flex items-end justify-center gap-1 sm:gap-2">
                 {/* Left */}
-                <div className="w-[30%] -rotate-6 pb-2">
+                <div className="w-[24%] -rotate-6 pb-3">
                   <PhotoFrame src={BABY_LEFT} alt="Joshua" size="side" />
                 </div>
 
                 {/* Center — sitting, largest */}
-                <div className="relative z-10 w-[40%]">
+                <div className="relative z-10 w-[52%] -mt-1">
                   <CowEars />
                   <div className="absolute -right-0.5 -top-1 z-20">
                     <span className="inline-block h-6 w-8 rotate-12 rounded-full bg-cow-spot opacity-80" />
@@ -115,7 +115,7 @@ export function HeroInvitation() {
                 </div>
 
                 {/* Right */}
-                <div className="w-[30%] rotate-6 pb-2">
+                <div className="w-[24%] rotate-6 pb-3">
                   <PhotoFrame src={BABY_RIGHT} alt="Joshua" size="side" />
                 </div>
               </div>
