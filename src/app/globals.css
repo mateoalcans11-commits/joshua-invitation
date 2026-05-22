@@ -130,7 +130,8 @@ body {
   }
 
   .hero-play.hero-enter-text,
-  .hero-play.hero-enter-photo {
+  .hero-play.hero-enter-photo,
+  .animate-wiggle-burst {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -294,6 +295,46 @@ body {
 
 .animate-wiggle-late {
   animation: wiggle 1.2s ease-in-out 0.9s infinite;
+}
+
+/* Wiggle a few times on load, then stop at neutral */
+@keyframes wiggle-burst {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(-5deg) scale(1.02);
+  }
+}
+
+.animate-wiggle-burst {
+  animation: wiggle-burst 0.45s ease-in-out 6;
+}
+
+.hero-w1 {
+  animation-delay: 0.1s;
+}
+.hero-w2 {
+  animation-delay: 0.25s;
+}
+.hero-w3 {
+  animation-delay: 0.4s;
+}
+.hero-w4 {
+  animation-delay: 0.55s;
+}
+.hero-w5 {
+  animation-delay: 0.7s;
+}
+.hero-w6 {
+  animation-delay: 0.85s;
+}
+.hero-w7 {
+  animation-delay: 1s;
 }
 
 .delay-100 {
