@@ -61,7 +61,7 @@ function PhotoFrame({
 function AnitoBadge() {
   return (
     <div
-      className="animate-wiggle relative z-20 mb-3 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm"
+      className="animate-wiggle relative z-20 mt-4 mb-3 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm sm:mt-5"
       aria-hidden
     >
       <span className="font-display text-base font-extrabold tracking-wide text-sky-600 sm:text-lg">
