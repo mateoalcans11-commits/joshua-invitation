@@ -61,7 +61,7 @@ function PhotoFrame({
 function AnitoBadge() {
   return (
     <div
-      className="animate-wiggle relative z-20 mt-4 mb-3 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm sm:mt-5"
+      className="animate-wiggle relative z-20 mt-2 mb-2 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm sm:mt-3"
       aria-hidden
     >
       <span className="font-display text-base font-extrabold tracking-wide text-sky-600 sm:text-lg">
@@ -78,7 +78,7 @@ export function HeroInvitation() {
         <CowDecorations variant="hero" />
 
         <div className="relative z-10 flex w-full max-w-lg flex-1 flex-col items-center">
-          <div className="relative w-full shrink-0 px-2 pt-[calc(1.5rem+80px+var(--safe-top))] text-center">
+          <div className="relative w-full shrink-0 px-2 pt-[calc(1rem+52px+var(--safe-top))] text-center">
             <AnitoBadge />
             <h1 className="relative z-10 font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-cow-brown min-[380px]:text-[2rem]">
               ¡Joshua cumple 1 añito!
@@ -88,7 +88,7 @@ export function HeroInvitation() {
             </p>
           </div>
 
-          <div className="flex w-full flex-1 flex-col items-center justify-center px-0.5 py-3 sm:py-5">
+          <div className="flex w-full flex-1 flex-col items-center justify-start px-0.5 pt-1 pb-2 sm:pt-2">
             <div className="relative mx-auto w-full max-w-[28rem] sm:max-w-[32rem]">
               <div className="flex items-end justify-center gap-1 sm:gap-2">
                 {/* Left */}
@@ -97,7 +97,7 @@ export function HeroInvitation() {
                 </div>
 
                 {/* Center — sitting, largest */}
-                <div className="relative z-10 w-[52%] -mt-1">
+                <div className="relative z-10 w-[52%]">
                   <CowEars />
                   <div className="absolute -right-0.5 -top-1 z-20">
                     <span className="inline-block h-6 w-8 rotate-12 rounded-full bg-cow-spot opacity-80" />
