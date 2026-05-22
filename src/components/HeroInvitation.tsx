@@ -19,7 +19,7 @@ export function HeroInvitation() {
         <CowDecorations variant="hero" />
 
         <div className="relative z-10 flex w-full max-w-md flex-1 flex-col items-center">
-          <div className="w-full shrink-0 pt-[calc(1.5rem+var(--safe-top))] text-center">
+          <div className="w-full shrink-0 pt-[calc(1.5rem+30px+var(--safe-top))] text-center">
             <h1 className="font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-cow-brown min-[380px]:text-[2rem]">
               ¡Joshua cumple 1 añito!
             </h1>
