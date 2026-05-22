@@ -118,10 +118,10 @@ export function HeroInvitation() {
 
   return (
     <>
-      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full flex-col items-center overflow-hidden px-2 sm:px-4">
+      <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full flex-col items-center overflow-hidden px-2 pb-[calc(var(--nav-height)+0.35rem)] sm:px-4">
         <CowDecorations variant="hero" />
 
-        <div className="relative z-10 flex w-full max-w-lg flex-1 flex-col items-center">
+        <div className="relative z-10 flex w-full max-w-lg flex-col items-center">
           <div className="relative w-full shrink-0 px-2 pt-[calc(0.5rem+28px+var(--safe-top))] text-center">
             <AnitoBadge play={play} />
             <h1
@@ -180,27 +180,46 @@ export function HeroInvitation() {
               </div>
             </div>
           </div>
-        </div>
 
-        <button
-          type="button"
-          onClick={() => scrollToSection(sectionIds.detalles)}
-          className={`touch-target relative z-20 mb-[calc(var(--nav-height)+0.75rem)] mt-auto flex min-h-[2.75rem] flex-col items-center justify-center gap-0.5 rounded-full bg-white/90 px-5 py-2 shadow-soft ring-1 ring-sky-200/80 backdrop-blur-sm ${introClass(play, "hero-t6")}`}
-          aria-label="Bajar a ver información de la fiesta"
-        >
-          <span className="text-xs font-bold text-cow-brown/70">Más abajo</span>
-          <span className="animate-bounce-gentle text-cow-brown/50" aria-hidden>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 5v14M5 12l7 7 7-7"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-        </button>
+          <div
+            className={`mt-2 flex w-full max-w-xs flex-col items-center gap-1.5 sm:mt-3 ${introClass(play, "hero-t6")}`}
+          >
+            <div
+              className="flex items-center justify-center gap-2 text-[10px] font-semibold text-cow-brown/45"
+              aria-hidden
+            >
+              <span className="inline-block h-1.5 w-2 rounded-full bg-cow-spot/25" />
+              <span>📅 fecha</span>
+              <span className="text-cow-brown/25">·</span>
+              <span>📍 lugar</span>
+              <span className="text-cow-brown/25">·</span>
+              <span>🎉 confirmar</span>
+              <span className="inline-block h-1.5 w-2.5 rounded-full bg-cow-spot/20" />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => scrollToSection(sectionIds.detalles)}
+              className="touch-target flex min-h-[2.25rem] flex-col items-center justify-center gap-0 rounded-full bg-white/90 px-4 py-1.5 shadow-soft ring-1 ring-sky-200/80 backdrop-blur-sm active:scale-[0.98]"
+              aria-label="Bajar a ver información de la fiesta"
+            >
+              <span className="text-[11px] font-bold leading-none text-cow-brown/65">
+                Más abajo
+              </span>
+              <span className="animate-bounce-gentle -mt-0.5 text-cow-brown/45" aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 5v14M5 12l7 7 7-7"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </section>
 
       <div
