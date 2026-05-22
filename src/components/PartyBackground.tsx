@@ -84,15 +84,14 @@ function BackgroundCows() {
 
 function CowSpotPattern() {
   const spots = [
-    { top: "6%", left: "4%", w: 28, h: 22, rot: -12, o: 0.08 },
-    { top: "14%", right: "6%", w: 36, h: 28, rot: 8, o: 0.07 },
-    { top: "20%", left: "45%", w: 14, h: 11, rot: 5, o: 0.05 },
-    { top: "38%", left: "2%", w: 20, h: 16, rot: 20, o: 0.06 },
-    { top: "50%", right: "20%", w: 16, h: 12, rot: -10, o: 0.04 },
-    { top: "62%", right: "3%", w: 32, h: 24, rot: -15, o: 0.07 },
-    { top: "78%", left: "8%", w: 24, h: 18, rot: 5, o: 0.06 },
-    { top: "88%", right: "12%", w: 18, h: 14, rot: -8, o: 0.05 },
-    { top: "92%", left: "40%", w: 22, h: 16, rot: 12, o: 0.04 },
+    { top: "4%", left: "2%", w: 22, h: 18, rot: -12, o: 0.06 },
+    { top: "8%", right: "3%", w: 26, h: 20, rot: 8, o: 0.06 },
+    { top: "32%", left: "1%", w: 18, h: 14, rot: 20, o: 0.05 },
+    { top: "42%", right: "2%", w: 20, h: 16, rot: -10, o: 0.05 },
+    { top: "58%", left: "3%", w: 28, h: 22, rot: 15, o: 0.06 },
+    { top: "68%", right: "4%", w: 32, h: 24, rot: -15, o: 0.07 },
+    { top: "82%", left: "6%", w: 22, h: 16, rot: 5, o: 0.05 },
+    { top: "90%", right: "8%", w: 18, h: 14, rot: -8, o: 0.04 },
   ];
   return (
     <>
@@ -351,14 +350,6 @@ function FloatingPartyIcons() {
         className="animate-float-medium absolute left-[3%] top-[66%] h-10 w-14 opacity-22"
         style={{ animationDelay: "2s" }}
       />
-      <div
-        className="animate-float-medium absolute left-1/2 top-[4%] -translate-x-1/2 rounded-full bg-white/70 px-4 py-1.5 shadow-soft ring-1 ring-sky-200/60 backdrop-blur-sm"
-        style={{ animationDelay: "0.3s" }}
-      >
-        <span className="font-display text-sm font-extrabold tracking-wide text-sky-600 sm:text-base">
-          1 · añito
-        </span>
-      </div>
       <BirthdayCake className="animate-float-slow absolute bottom-[18%] left-[4%] h-10 w-10 opacity-30 sm:h-12 sm:w-12" />
       <GiftBox
         className="animate-float-medium absolute bottom-[22%] right-[5%] h-9 w-9 opacity-25 sm:h-11 sm:w-11"

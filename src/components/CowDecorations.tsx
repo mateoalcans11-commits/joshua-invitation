@@ -37,22 +37,17 @@ export function FloatingDecorations({ className = "" }: { className?: string }) 
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
       aria-hidden
     >
-      <CowFace className="animate-float-slow absolute left-[3%] top-[10%] h-16 w-16 opacity-40 sm:h-20 sm:w-20" />
-      <CuteCow
-        className="animate-float-medium absolute right-[2%] top-[14%] h-14 w-20 opacity-35"
-        style={{ animationDelay: "0.6s" }}
-      />
       <CowSpot
-        size="lg"
-        className="animate-float-slow absolute left-[8%] top-[18%] opacity-25"
+        size="sm"
+        className="animate-float-slow absolute left-[2%] top-[38%] opacity-15"
       />
       <CowSpot
         size="md"
-        className="animate-float-medium absolute right-[10%] top-[22%] opacity-30"
+        className="animate-float-medium absolute right-[3%] top-[42%] opacity-18"
       />
       <CowSpot
         size="sm"
-        className="animate-float-fast absolute left-[15%] bottom-[28%] opacity-20"
+        className="animate-float-fast absolute left-[4%] bottom-[22%] opacity-15"
       />
       <CowHoofPrint className="absolute left-[6%] top-[35%] h-9 w-8 opacity-30 rotate-15" />
       <CowHoofPrint className="absolute right-[8%] bottom-[32%] h-8 w-7 opacity-25 -rotate-12" />
