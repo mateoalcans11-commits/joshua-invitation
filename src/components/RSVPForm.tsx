@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { fireCelebrationConfetti } from "@/lib/confetti";
 import { sectionIds } from "@/lib/event-info";
 import { CardCowCorners, CowDecorations } from "./CowDecorations";
 
@@ -23,6 +24,7 @@ export function RSVPForm({ onSubmit, disabled = false }: RSVPFormProps) {
     try {
       await onSubmit(trimmed);
       setSuccess(true);
+      void fireCelebrationConfetti();
       setName("");
       setTimeout(() => setSuccess(false), 5000);
     } finally {
