@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CowDecorations, CowEars } from "./CowDecorations";
 import { sectionIds } from "@/lib/event-info";
 import { scrollToSection } from "@/lib/scroll-to";
@@ -11,28 +11,66 @@ const BABY_SITTING = "/joshua-baby.jpg";
 const BABY_LEFT = "/joshua-sleeping.png";
 const BABY_RIGHT = "/joshua-standing.jpg";
 
+function useHeroIntro() {
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPlay(true);
+      return;
+    }
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setPlay(true));
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  return play;
+}
+
+function introClass(
+  play: boolean,
+  delay: string,
+  type: "text" | "photo" = "text"
+) {
+  if (!play) {
+    return type === "photo" ? "hero-prepare-photo" : "hero-prepare";
+  }
+  return type === "photo"
+    ? `hero-play hero-enter-photo ${delay}`
+    : `hero-play hero-enter-text ${delay}`;
+}
+
 function PhotoFrame({
   src,
   alt,
+  play,
+  delay,
   priority = false,
   rotate = "",
   size = "side" as "side" | "center",
-  enterClass = "",
 }: {
   src: string;
   alt: string;
+  play: boolean;
+  delay: string;
   priority?: boolean;
   rotate?: string;
   size?: "side" | "center";
-  enterClass?: string;
 }) {
   const [failed, setFailed] = useState(false);
   const pad = size === "center" ? "p-3 sm:p-3.5" : "p-1.5 sm:p-2";
-  const radius = size === "center" ? "rounded-[1.6rem] sm:rounded-[1.85rem]" : "rounded-[1.2rem] sm:rounded-[1.35rem]";
-  const innerRadius = size === "center" ? "rounded-[1.25rem] sm:rounded-[1.5rem]" : "rounded-[1rem] sm:rounded-[1.15rem]";
+  const radius =
+    size === "center"
+      ? "rounded-[1.6rem] sm:rounded-[1.85rem]"
+      : "rounded-[1.2rem] sm:rounded-[1.35rem]";
+  const innerRadius =
+    size === "center"
+      ? "rounded-[1.25rem] sm:rounded-[1.5rem]"
+      : "rounded-[1rem] sm:rounded-[1.15rem]";
 
   return (
-    <div className={`hero-enter-photo relative w-full ${rotate} ${enterClass}`}>
+    <div className={`relative w-full ${rotate} ${introClass(play, delay, "photo")}`}>
       <div className={`relative bg-white shadow-card ring-1 ring-black/5 ${pad} ${radius}`}>
         <div
           className={`relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-br from-cream via-beige to-sky-100 ${innerRadius}`}
@@ -60,13 +98,15 @@ function PhotoFrame({
   );
 }
 
-function AnitoBadge() {
+function AnitoBadge({ play }: { play: boolean }) {
   return (
     <div
-      className="hero-enter hero-d1 relative z-20 mt-1 mb-2 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm"
+      className={`relative z-20 mt-1 mb-2 inline-flex rounded-full bg-white/90 px-5 py-2 shadow-soft ring-2 ring-sky-200/70 backdrop-blur-sm ${introClass(play, "hero-t1")}`}
       aria-hidden
     >
-      <span className="animate-wiggle-late font-display text-base font-extrabold tracking-wide text-sky-600 sm:text-lg">
+      <span
+        className={`font-display text-base font-extrabold tracking-wide text-sky-600 sm:text-lg ${play ? "animate-wiggle-late" : ""}`}
+      >
         1 añito
       </span>
     </div>
@@ -74,31 +114,38 @@ function AnitoBadge() {
 }
 
 export function HeroInvitation() {
+  const play = useHeroIntro();
+
   return (
     <>
       <section className="relative flex min-h-[100dvh] min-h-[100svh] w-full flex-col items-center overflow-hidden px-2 sm:px-4">
         <CowDecorations variant="hero" />
 
         <div className="relative z-10 flex w-full max-w-lg flex-1 flex-col items-center">
-          <div className="relative w-full shrink-0 px-2 pt-[calc(0.5rem+34px+var(--safe-top))] text-center">
-            <AnitoBadge />
-            <h1 className="hero-enter hero-d2 relative z-10 font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-cow-brown min-[380px]:text-[2rem]">
+          <div className="relative w-full shrink-0 px-2 pt-[calc(0.5rem+28px+var(--safe-top))] text-center">
+            <AnitoBadge play={play} />
+            <h1
+              className={`relative z-10 font-display text-[1.75rem] font-bold leading-[1.15] tracking-tight text-cow-brown min-[380px]:text-[2rem] ${introClass(play, "hero-t2")}`}
+            >
               ¡Joshua cumple 1 añito!
             </h1>
-            <p className="hero-enter hero-d3 relative z-10 mt-2 text-[1.0625rem] leading-relaxed text-cow-brown/80">
+            <p
+              className={`relative z-10 mt-2 text-[1.0625rem] leading-relaxed text-cow-brown/80 ${introClass(play, "hero-t3")}`}
+            >
               Nos gustaría muuuuuuucho que estuvieras presente 🐮
             </p>
           </div>
 
-          <div className="flex w-full flex-none flex-col items-center px-0.5 -mt-1 pb-2">
+          <div className="flex w-full flex-none flex-col items-center px-0.5 -mt-2 pb-2">
             <div className="relative mx-auto w-full max-w-[28rem] sm:max-w-[32rem]">
               <div className="flex items-end justify-center gap-1 sm:gap-2">
                 <div className="w-[24%] -rotate-6 pb-3">
                   <PhotoFrame
                     src={BABY_LEFT}
                     alt="Joshua"
+                    play={play}
+                    delay="hero-t5"
                     size="side"
-                    enterClass="hero-d5"
                   />
                 </div>
 
@@ -113,10 +160,11 @@ export function HeroInvitation() {
                   <PhotoFrame
                     src={BABY_SITTING}
                     alt="Joshua sentado"
+                    play={play}
+                    delay="hero-t4"
                     priority
                     size="center"
                     rotate="rotate-1"
-                    enterClass="hero-d4"
                   />
                 </div>
 
@@ -124,8 +172,9 @@ export function HeroInvitation() {
                   <PhotoFrame
                     src={BABY_RIGHT}
                     alt="Joshua"
+                    play={play}
+                    delay="hero-t6"
                     size="side"
-                    enterClass="hero-d6"
                   />
                 </div>
               </div>
@@ -136,7 +185,7 @@ export function HeroInvitation() {
         <button
           type="button"
           onClick={() => scrollToSection(sectionIds.detalles)}
-          className="hero-enter hero-d6 touch-target relative z-20 mb-[calc(var(--nav-height)+0.75rem)] mt-auto flex min-h-[2.75rem] flex-col items-center justify-center gap-0.5 rounded-full bg-white/90 px-5 py-2 shadow-soft ring-1 ring-sky-200/80 backdrop-blur-sm"
+          className={`touch-target relative z-20 mb-[calc(var(--nav-height)+0.75rem)] mt-auto flex min-h-[2.75rem] flex-col items-center justify-center gap-0.5 rounded-full bg-white/90 px-5 py-2 shadow-soft ring-1 ring-sky-200/80 backdrop-blur-sm ${introClass(play, "hero-t6")}`}
           aria-label="Bajar a ver información de la fiesta"
         >
           <span className="text-xs font-bold text-cow-brown/70">Más abajo</span>
@@ -154,7 +203,9 @@ export function HeroInvitation() {
         </button>
       </section>
 
-      <div className="hero-enter hero-d4 relative z-10 w-full px-4 pb-8 pt-4">
+      <div
+        className={`relative z-10 w-full px-4 pb-8 pt-4 ${introClass(play, "hero-t4")}`}
+      >
         <div className="mx-auto w-full max-w-md">
           <EventSummaryCard />
         </div>

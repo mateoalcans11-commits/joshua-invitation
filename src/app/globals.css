@@ -123,6 +123,19 @@ body {
     transition-duration: 0.01ms !important;
   }
 
+  .hero-prepare,
+  .hero-prepare-photo {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-play.hero-enter-text,
+  .hero-play.hero-enter-photo {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   html {
     scroll-behavior: auto;
   }
@@ -169,11 +182,21 @@ body {
   }
 }
 
-/* One-time hero entrance — light, then stops */
+/* Hero entrance — hidden until .hero-play, then animates once */
+.hero-prepare {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.hero-prepare-photo {
+  opacity: 0;
+  transform: translateY(32px) scale(0.92);
+}
+
 @keyframes hero-enter {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(28px);
   }
   to {
     opacity: 1;
@@ -184,7 +207,7 @@ body {
 @keyframes hero-enter-photo {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.97);
+    transform: translateY(32px) scale(0.92);
   }
   to {
     opacity: 1;
@@ -192,31 +215,31 @@ body {
   }
 }
 
-.hero-enter {
-  animation: hero-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-play.hero-enter-text {
+  animation: hero-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-enter-photo {
-  animation: hero-enter-photo 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-play.hero-enter-photo {
+  animation: hero-enter-photo 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-d1 {
-  animation-delay: 0.05s;
+.hero-t1 {
+  animation-delay: 0s;
 }
-.hero-d2 {
-  animation-delay: 0.14s;
+.hero-t2 {
+  animation-delay: 0.12s;
 }
-.hero-d3 {
+.hero-t3 {
   animation-delay: 0.24s;
 }
-.hero-d4 {
-  animation-delay: 0.36s;
+.hero-t4 {
+  animation-delay: 0.38s;
 }
-.hero-d5 {
-  animation-delay: 0.46s;
+.hero-t5 {
+  animation-delay: 0.5s;
 }
-.hero-d6 {
-  animation-delay: 0.56s;
+.hero-t6 {
+  animation-delay: 0.62s;
 }
 
 @keyframes bounce-gentle {
