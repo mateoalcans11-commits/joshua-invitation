@@ -169,6 +169,56 @@ body {
   }
 }
 
+/* One-time hero entrance — light, then stops */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-enter-photo {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-photo {
+  animation: hero-enter-photo 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-d1 {
+  animation-delay: 0.05s;
+}
+.hero-d2 {
+  animation-delay: 0.14s;
+}
+.hero-d3 {
+  animation-delay: 0.24s;
+}
+.hero-d4 {
+  animation-delay: 0.36s;
+}
+.hero-d5 {
+  animation-delay: 0.46s;
+}
+.hero-d6 {
+  animation-delay: 0.56s;
+}
+
 @keyframes bounce-gentle {
   0%,
   100% {
@@ -217,6 +267,10 @@ body {
 
 .animate-wiggle {
   animation: wiggle 1.2s ease-in-out infinite;
+}
+
+.animate-wiggle-late {
+  animation: wiggle 1.2s ease-in-out 0.9s infinite;
 }
 
 .delay-100 {
