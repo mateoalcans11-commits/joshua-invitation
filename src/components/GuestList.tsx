@@ -45,6 +45,8 @@ export function GuestList({ guests }: GuestListProps) {
         <p className="mt-6 text-center text-xs text-cow-brown/40">
           {guests.length}{" "}
           {guests.length === 1 ? "persona confirmada" : "personas confirmadas"}
+          {" · "}
+          lista compartida para todos
         </p>
       </div>
     </section>

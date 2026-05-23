@@ -33,9 +33,11 @@ En `src/components/EventDetails.tsx`, reemplaza los placeholders:
 
 ## RSVP
 
-Los nombres se guardan en **localStorage** del navegador (cada dispositivo tiene su propia lista).
+Los nombres se guardan en **`data/rsvp-guests.json`** (en el proyecto) y todos los invitados ven la misma lista vía `/api/rsvp`.
 
-Para RSVP compartido entre invitados, implementa `RsvpStorage` en `src/lib/rsvp-storage.ts` con Supabase o Firebase.
+- En desarrollo (`npm run dev`), cada confirmación actualiza ese archivo.
+- En **Vercel**, añade un almacén **Blob** en el proyecto (el token `BLOB_READ_WRITE_TOKEN` se configura solo); sin eso, las confirmaciones no persisten en producción.
+- Puedes editar la lista a mano en `data/rsvp-guests.json` si hace falta.
 
 ## Despliegue
 

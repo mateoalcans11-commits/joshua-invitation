@@ -15,10 +15,23 @@ export function InvitationPage() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    rsvpStorage.getGuests().then((list) => {
-      setGuests(list);
-      setReady(true);
-    });
+    let cancelled = false;
+
+    async function refresh() {
+      const list = await rsvpStorage.getGuests();
+      if (!cancelled) {
+        setGuests(list);
+        setReady(true);
+      }
+    }
+
+    void refresh();
+    const interval = setInterval(() => void refresh(), 20_000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
   }, []);
 
   const handleRsvp = useCallback(async (name: string) => {
