@@ -45,7 +45,11 @@ Los nombres se guardan en **`data/rsvp-guests.json`** (en el proyecto) y todos l
 npm run build
 ```
 
-Ideal para Vercel: comparte el enlace por WhatsApp.
+Ideal para Vercel: comparte el enlace por WhatsApp. La vista prevía muestra título **Invitación**, foto de Joshua y datos de la fiesta (Open Graph).
+
+Si usas dominio propio, añade en Vercel la variable `NEXT_PUBLIC_SITE_URL` = `https://tudominio.com` (para que la imagen del enlace sea la URL correcta).
+
+WhatsApp guarda caché de vistas previas: si no se actualiza, espera unos minutos o prueba el enlace en [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/).
 
 ## Componentes
 
