@@ -8,49 +8,54 @@ const MP3_SRC = "/party-music.mp3";
 export function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const synthRef = useRef<ReturnType<typeof createPartyMusicEngine> | null>(null);
-  const unlockedRef = useRef(false);
+  const useMp3Ref = useRef(true);
+  const userMutedRef = useRef(false);
   const [playing, setPlaying] = useState(false);
-  const [useMp3, setUseMp3] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  const startPlayback = useCallback(async () => {
-    if (unlockedRef.current || reducedMotion) return;
+  const playFromGesture = useCallback(() => {
+    if (userMutedRef.current) return;
+
+    const startSynth = () => {
+      if (!synthRef.current) synthRef.current = createPartyMusicEngine();
+      synthRef.current?.start();
+      setPlaying(true);
+    };
 
     const audio = audioRef.current;
-    if (useMp3 && audio) {
-      try {
-        audio.muted = false;
-        await audio.play();
-        unlockedRef.current = true;
-        setPlaying(true);
-        return;
-      } catch {
-        /* fall through to synth */
+    if (useMp3Ref.current && audio) {
+      audio.muted = false;
+      const promise = audio.play();
+      if (promise) {
+        promise.catch(() => {
+          useMp3Ref.current = false;
+          startSynth();
+        });
       }
+      return;
     }
 
-    if (!synthRef.current) {
-      synthRef.current = createPartyMusicEngine();
-    }
-    synthRef.current?.start();
-    unlockedRef.current = true;
-    setPlaying(true);
-  }, [reducedMotion, useMp3]);
+    startSynth();
+  }, []);
 
-  const stopPlayback = useCallback(() => {
-    audioRef.current?.pause();
+  const pauseAll = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+    }
     synthRef.current?.stop();
     setPlaying(false);
   }, []);
 
   const toggle = useCallback(() => {
     if (playing) {
-      unlockedRef.current = false;
-      stopPlayback();
+      userMutedRef.current = true;
+      pauseAll();
     } else {
-      void startPlayback();
+      userMutedRef.current = false;
+      playFromGesture();
     }
-  }, [playing, startPlayback, stopPlayback]);
+  }, [playing, pauseAll, playFromGesture]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -65,66 +70,60 @@ export function BackgroundMusic() {
 
     const audio = new Audio(MP3_SRC);
     audio.loop = true;
-    audio.volume = 0.35;
+    audio.volume = 0.4;
     audio.preload = "auto";
     audioRef.current = audio;
 
-    audio.addEventListener(
-      "canplaythrough",
-      () => setUseMp3(true),
-      { once: true }
-    );
-    audio.addEventListener(
-      "error",
-      () => setUseMp3(false),
-      { once: true }
-    );
+    const onPlaying = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+
+    audio.addEventListener("playing", onPlaying);
+    audio.addEventListener("pause", onPause);
+    audio.addEventListener("error", () => {
+      useMp3Ref.current = false;
+    });
 
     synthRef.current = createPartyMusicEngine();
 
-    const tryAutoplay = async () => {
-      if (unlockedRef.current) return;
-      try {
-        audio.muted = true;
-        await audio.play();
-        audio.pause();
-        audio.currentTime = 0;
-        audio.muted = false;
-        await audio.play();
-        unlockedRef.current = true;
-        setUseMp3(true);
-        setPlaying(true);
-        return;
-      } catch {
-        audio.muted = false;
-      }
-      try {
-        synthRef.current?.start();
-        unlockedRef.current = true;
-        setPlaying(true);
-      } catch {
-        /* blocked until user taps */
+    const tryAutoplay = () => {
+      if (userMutedRef.current) return;
+      const p = audio.play();
+      if (p) {
+        p.catch(() => {
+          /* blocked — first tap on page will start */
+        });
       }
     };
 
-    void tryAutoplay();
+    if (audio.readyState >= 2) {
+      tryAutoplay();
+    } else {
+      audio.addEventListener("canplay", tryAutoplay, { once: true });
+    }
 
-    const unlock = () => {
-      if (!unlockedRef.current) void startPlayback();
+    const startOnFirstTouch = () => {
+      if (userMutedRef.current || !audio.paused) return;
+      playFromGesture();
     };
 
-    document.addEventListener("pointerdown", unlock, { once: true, passive: true });
-    document.addEventListener("touchstart", unlock, { once: true, passive: true });
-    document.addEventListener("keydown", unlock, { once: true });
+    document.addEventListener("pointerdown", startOnFirstTouch, {
+      capture: true,
+      passive: true,
+    });
+    document.addEventListener("touchstart", startOnFirstTouch, {
+      capture: true,
+      passive: true,
+    });
 
     return () => {
-      document.removeEventListener("pointerdown", unlock);
-      document.removeEventListener("touchstart", unlock);
-      document.removeEventListener("keydown", unlock);
+      document.removeEventListener("pointerdown", startOnFirstTouch, true);
+      document.removeEventListener("touchstart", startOnFirstTouch, true);
+      audio.removeEventListener("playing", onPlaying);
+      audio.removeEventListener("pause", onPause);
       audio.pause();
       synthRef.current?.dispose();
     };
-  }, [reducedMotion, startPlayback]);
+  }, [reducedMotion, playFromGesture]);
 
   if (reducedMotion) return null;
 
