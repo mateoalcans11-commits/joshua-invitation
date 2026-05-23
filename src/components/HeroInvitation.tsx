@@ -180,7 +180,7 @@ export function HeroInvitation() {
 
       <HeroCowBridge />
 
-      <div className="relative z-10 w-full px-4 pb-6 pt-0">
+      <div className="relative z-10 w-full px-4 pb-6 pt-5 sm:pt-7">
         <div className="mx-auto w-full max-w-md">
           <EventSummaryCard />
         </div>

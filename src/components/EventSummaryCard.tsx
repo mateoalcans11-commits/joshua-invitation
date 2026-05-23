@@ -6,7 +6,7 @@ export function EventSummaryCard() {
     <div
       id={sectionIds.detalles}
       tabIndex={-1}
-      className="scroll-mt-6 mt-6 w-full rounded-3xl bg-white/95 p-4 text-left shadow-card ring-2 ring-sky-200/70 outline-none sm:mt-8 sm:p-5"
+      className="scroll-mt-6 mt-2 w-full rounded-3xl bg-white/95 p-4 text-left shadow-card ring-2 ring-sky-200/70 outline-none sm:p-5"
       aria-labelledby="fiesta-info-heading"
     >
       <p

@@ -4,7 +4,7 @@ import { CowSpot } from "./CowDecorations";
 export function HeroCowBridge() {
   return (
     <div
-      className="relative z-10 flex items-center justify-center gap-3 px-4 py-2 sm:gap-4 sm:py-3"
+      className="relative z-10 mb-2 flex items-center justify-center gap-3 px-4 py-3 sm:mb-3 sm:gap-4 sm:py-4"
       aria-hidden
     >
       <CowFace className="animate-wiggle-burst hero-w2 h-9 w-9 opacity-50 sm:h-10 sm:w-10" />
