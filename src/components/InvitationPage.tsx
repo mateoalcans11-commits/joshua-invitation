@@ -8,6 +8,7 @@ import { CowScatter } from "./CowScatter";
 import { PartyBackground } from "./PartyBackground";
 import { PartyDivider } from "./PartyDivider";
 import { RSVPForm } from "./RSVPForm";
+import { BackgroundMusic } from "./BackgroundMusic";
 import { SectionNavigation } from "./SectionNavigation";
 
 export function InvitationPage() {
@@ -41,6 +42,7 @@ export function InvitationPage() {
 
   return (
     <div className="invite-shell mobile-reduce-motion relative bg-gradient-to-b from-[#fef9f4] via-cream via-40% to-[#f0f7fc]">
+      <BackgroundMusic />
       <PartyBackground />
 
       <main className="relative z-10 w-full">

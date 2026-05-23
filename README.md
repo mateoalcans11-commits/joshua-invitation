@@ -11,6 +11,12 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+### Música de fondo
+
+Al abrir la página suena un loop festivo (sintetizado). Para usar **tu canción**, coloca un MP3 en `public/party-music.mp3` (recomendado &lt; 1 MB, corto en loop). Botón 🔊 arriba a la derecha para silenciar.
+
+En iPhone/WhatsApp el navegador puede bloquear el autoplay hasta el primer toque en la pantalla (política del sistema, no se puede pedir “permiso” de audio).
+
 ## Foto del bebé
 
 Coloca la foto subida en:
