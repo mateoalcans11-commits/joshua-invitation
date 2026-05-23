@@ -1,3 +1,4 @@
+import { get, put } from "@vercel/blob";
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 
@@ -14,26 +15,32 @@ function normalizeName(name: string): string {
   return name.trim().replace(/\s+/g, " ");
 }
 
+function hasBlobToken(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
+
 async function loadFromBlob(): Promise<string[] | null> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return null;
+  if (!hasBlobToken()) return null;
   try {
-    const { head } = await import("@vercel/blob");
-    const meta = await head(BLOB_PATHNAME);
-    const res = await fetch(meta.url, { cache: "no-store" });
-    if (!res.ok) return [];
-    return parseGuests(await res.text());
+    const result = await get(BLOB_PATHNAME, {
+      access: "private",
+      useCache: false,
+    });
+    if (!result?.stream) return [];
+    const raw = await new Response(result.stream).text();
+    return parseGuests(raw);
   } catch {
     return null;
   }
 }
 
 async function saveToBlob(guests: string[]): Promise<void> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return;
-  const { put } = await import("@vercel/blob");
+  if (!hasBlobToken()) return;
   await put(BLOB_PATHNAME, JSON.stringify(guests, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     allowOverwrite: true,
+    contentType: "application/json",
   });
 }
 
@@ -47,12 +54,18 @@ async function loadFromFile(): Promise<string[]> {
 }
 
 async function saveToFile(guests: string[]): Promise<void> {
-  await writeFile(LOCAL_FILE, JSON.stringify(guests, null, 2) + "\n", "utf-8");
+  try {
+    await writeFile(LOCAL_FILE, JSON.stringify(guests, null, 2) + "\n", "utf-8");
+  } catch {
+    // Vercel serverless filesystem is read-only; Blob is the store there.
+  }
 }
 
 export async function loadGuests(): Promise<string[]> {
-  const fromBlob = await loadFromBlob();
-  if (fromBlob !== null) return fromBlob;
+  if (hasBlobToken()) {
+    const fromBlob = await loadFromBlob();
+    if (fromBlob !== null) return fromBlob;
+  }
   return loadFromFile();
 }
 

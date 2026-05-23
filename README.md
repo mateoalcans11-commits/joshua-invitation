@@ -36,7 +36,7 @@ En `src/components/EventDetails.tsx`, reemplaza los placeholders:
 Los nombres se guardan en **`data/rsvp-guests.json`** (en el proyecto) y todos los invitados ven la misma lista vía `/api/rsvp`.
 
 - En desarrollo (`npm run dev`), cada confirmación actualiza ese archivo.
-- En **Vercel**, añade un almacén **Blob** en el proyecto (el token `BLOB_READ_WRITE_TOKEN` se configura solo); sin eso, las confirmaciones no persisten en producción.
+- En **Vercel**: **Storage → Create → Blob → Connect to project**. No hace falta pegar código: la app ya usa `put` / `get` de `@vercel/blob` con `BLOB_READ_WRITE_TOKEN` automático. Redeploy después de conectar.
 - Puedes editar la lista a mano en `data/rsvp-guests.json` si hace falta.
 
 ## Despliegue
